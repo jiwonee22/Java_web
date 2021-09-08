@@ -27,10 +27,15 @@ public class UserEx {
 		// 유저 정보를 객체에 입력하고
 		//DB에 삽입되도록 구현하세요!!
 		
+		//	** idx -> userTest_SQ.nextval
 		//	userId : A123
 		//	name : Alice
 		
-		User insertUser = null;
+		User insertUser = new User();
+		
+		insertUser.setUserid("A123");
+		insertUser.setName("Alice");
+		
 		userDao.insertUser(insertUser);
 		//-----------------
 		

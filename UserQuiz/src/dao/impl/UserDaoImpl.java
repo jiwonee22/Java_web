@@ -35,6 +35,11 @@ public class UserDaoImpl implements UserDao {
 			Class.forName(DRIVER);
 
 			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			
+			//--- 자동 커밋 설정 ---
+			//	-> true - AutoCommit 한다 (기본값)
+			//	-> false - AutoCommit 하지 않는다, 직접 commit 또는 rollback 해야함
+			conn.setAutoCommit(false);
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -44,7 +49,6 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
-
 	@Override
 	public List<User> selectAll() {
 
@@ -52,11 +56,10 @@ public class UserDaoImpl implements UserDao {
 		sql += "SELECT * FROM userTest";
 		sql += " ORDER BY idx";
 
-		List<User> list = new ArrayList();
+		List<User> userList = new ArrayList<>();
 		
 		try {
 			ps = conn.prepareStatement(sql);
-
 			rs = ps.executeQuery();
 
 			while(rs.next()) {
@@ -66,7 +69,7 @@ public class UserDaoImpl implements UserDao {
 				user.setUserid(rs.getString("userid"));
 				user.setName(rs.getString("name"));
 
-				list.add(user);
+				userList.add(user);
 
 			}
 		} catch (SQLException e) {
@@ -74,22 +77,23 @@ public class UserDaoImpl implements UserDao {
 		} finally {
 
 			try {
-				if(rs != null)	rs.close();
-				if(ps != null)	ps.close();
+				if(rs != null && !rs.isClosed())	rs.close(); //resultSet이 만들어 진적이 있고, 클로즈 된적이 없을 때 rs.close();
+				if(ps != null && !ps.isClosed())	ps.close(); //preparedStatement가 만들어 진적이 있고, 클로즈 된적이 없을 때 ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
 		}
-		return list;
+		//--- 최종 결과 리턴 ---
+		return userList;
 	}
 
 	@Override
 	public void insertUser(User insertUser) {
 
 		String sql = "";
-		sql += "INSERT INTO userTest (userid, name)";
-		sql += " VALUES(?, ?)";
+		sql += "INSERT INTO userTest (idx, userid, name)";
+		sql += " VALUES(userTest_SQ.nextval, ?, ?)";
 
 
 		try {
@@ -131,7 +135,7 @@ public class UserDaoImpl implements UserDao {
 
 		String sql = "";
 		sql += "SELECT * FROM userTest";
-		sql += " WHERE index = ?";
+		sql += " WHERE idx = ?";
 
 		User user = null;
 
@@ -139,8 +143,10 @@ public class UserDaoImpl implements UserDao {
 			ps = conn.prepareStatement(sql);
 
 			ps.setInt(1, idx);
+			
+			rs = ps.executeQuery();
 
-			while(rs.next()) {
+			if(rs.next()) {
 				user = new User();
 
 				user.setIdx(rs.getInt("idx"));
@@ -153,8 +159,8 @@ public class UserDaoImpl implements UserDao {
 		} finally {
 
 			try {
-				if(rs != null)	rs.close();
-				if(ps != null)	ps.close();
+				if(rs != null && !rs.isClosed())	rs.close();
+				if(ps != null && !ps.isClosed())	ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -168,7 +174,7 @@ public class UserDaoImpl implements UserDao {
 		
 		String sql = "";
 		sql += "DELETE userTest";
-		sql += " WHERE index = ?";
+		sql += " WHERE idx = ?";
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -190,8 +196,7 @@ public class UserDaoImpl implements UserDao {
 			}
 			
 			try {
-				if(rs != null)	rs.close();
-				if(ps != null)	ps.close();
+				if(ps != null && !ps.isClosed())	ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

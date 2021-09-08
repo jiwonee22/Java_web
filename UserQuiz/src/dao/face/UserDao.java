@@ -25,18 +25,18 @@ public interface UserDao {
 	/**
 	 * 인덱스를 이용해서 유저 정보 조회하기
 	 * 
-	 * @param index - 조회하려는 유저의 인덱스
+	 * @param idx - 조회하려는 유저의 인덱스
 	 * @return 인덱스로 조회한 유저의 정보 DTO객체, 조회 대상이 없으면 null을 반환한다
 	 */
-	public User selectByIdx(int i);
+	public User selectByIdx(int idx);
 
 
 	/**
 	 * 인덱스를 이용해서 유저 정보 삭제하기
 	 * 
-	 * @param index - 삭제하려는 유저의 인덱스
+	 * @param idx - 삭제하려는 유저의 인덱스
 	 */
-	public void deleteByIdx(int i);
+	public void deleteByIdx(int idx);
 	
 	
 
