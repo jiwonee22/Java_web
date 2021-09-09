@@ -12,11 +12,15 @@ public class HiServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
 		System.out.println("GET METHOD 요청 처리");
+	
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		System.out.println("POST METHOD 요청 처리");
+	
 	}
 }
