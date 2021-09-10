@@ -33,6 +33,8 @@ public class FormServlet extends HttpServlet {
 		
 		//-------------------------------------------------------
 		
+		//요청 데이터의 한글 인코딩 방식 지정하기
+		req.setCharacterEncoding("UTF-8");
 		
 		//응답 데이터의 형식 지정하기
 		resp.setContentType("text/html; charset=utf-8");
