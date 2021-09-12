@@ -21,7 +21,7 @@
 <input type="text" name="email" id="email" /> <br>
 
 <br>
-<input type="submit" value="회원가입" />
+<button>회원가입</button>
 
 </form>
 
