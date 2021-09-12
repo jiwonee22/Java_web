@@ -12,7 +12,7 @@ public interface MemberDao {
 	 * @param conn - DB연결 객체
 	 * @return member_seq.nextval
 	 */
-	int selectNextUserno(Connection conn);
+	public int selectNextUserno(Connection conn);
 	
 	
 	/**
@@ -20,9 +20,9 @@ public interface MemberDao {
 	 * 
 	 * @param conn
 	 * @param param - 삽입할 정보 객체
-	 * @return
+	 * @return result (INSERT성공시 1, 실패시 0 반환)
 	 */
-	int insert(Connection conn, Member param);
+	public int insert(Connection conn, Member param);
 	
 	
 

@@ -1,8 +1,10 @@
-<%@page import="dto.Member"%>
+<%@page import="dto.Member"%> 
+<!-- 자동 import 단축키 ctrl + space -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <% Member m = (Member) request.getAttribute("result"); %>
+<!-- MeberController파일에서 setAttribute로 보낸 "result"객체 받음 -> Member타입으로 형변환 -->
 
 
 <!DOCTYPE html>

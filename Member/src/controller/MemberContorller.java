@@ -27,8 +27,7 @@ public class MemberContorller extends HttpServlet {
 		//JSP로 응답데이터 만들기 - VIEW 지정하기
 		
 		req.getRequestDispatcher("/WEB-INF/views/joinForm.jsp").forward(req, resp);
-		
-		
+	
 		
 	}
 	
@@ -43,7 +42,7 @@ public class MemberContorller extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 					
 		//응답 데이터의 형식 지정하기
-		resp.setContentType("text/html; charset=utf-8");
+		resp.setContentType("text/html; charset=UTF-8");
 		
 		//전달 파라미터를 MODEL객체에 저장
 		Member param = memberService.getParam(req);
@@ -52,9 +51,11 @@ public class MemberContorller extends HttpServlet {
 		Member result = memberService.join(param);
 		
 		//DB에 입력된 값을 View에 전달
+		//"result"라는 이름의 result객체를 req에 저장
 		req.setAttribute("result", result);
 		
 		//view를 지정하고 응답하기
+		//req객체를 forward를 통해 view에 전달
 		req.getRequestDispatcher("/WEB-INF/views/result.jsp").forward(req, resp);
 	
 	}

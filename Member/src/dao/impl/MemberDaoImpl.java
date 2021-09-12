@@ -18,7 +18,7 @@ public class MemberDaoImpl implements MemberDao {
 	public int selectNextUserno(Connection conn) {
 		
 		String sql = "";
-		sql += "SELECT member_seq.nextval AS next FROM dual";
+		sql += "SELECT member_seq.nextval AS next FROM dual"; //next : Alias, dual: 가상테이블, 조회할 때 1씩 증가함(sequence)
 		
 		int next = 0; //결과를 저장할 변수
 		
@@ -26,9 +26,9 @@ public class MemberDaoImpl implements MemberDao {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			
-			rs.next();
+			rs.next(); //조회된 첫 행 결과 찾기
 			
-			next = rs.getInt("next");
+			next = rs.getInt("next"); //next 컬럼 데이터를 int next에 저장
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,7 +56,7 @@ public class MemberDaoImpl implements MemberDao {
 			ps.setString(3, param.getNick());
 			ps.setString(4, param.getEmail());
 			
-			result = ps.executeUpdate();
+			result = ps.executeUpdate(); //수행했을 때 영향받은 행의 수를 반환한다 -> INSERT 성공시 1, 실패시 0반환
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
