@@ -1,4 +1,5 @@
-<%@page import="dto.Member"%> 
+<%@page import="dto.Member"%>
+
 <!-- 자동 import 단축키 ctrl + space -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
