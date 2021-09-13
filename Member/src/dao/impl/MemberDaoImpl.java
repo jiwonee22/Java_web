@@ -26,7 +26,7 @@ public class MemberDaoImpl implements MemberDao {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			
-			rs.next(); //조회된 첫 행 결과 찾기
+			rs.next(); //조회된 첫 행 결과 찾기 --> 이해안됨...
 			
 			next = rs.getInt("next"); //next 컬럼 데이터를 int next에 저장
 			
