@@ -24,6 +24,7 @@ import dao.face.FileDao;
 import dao.impl.FileDaoImpl;
 import dto.ParamData;
 import dto.UploadFile;
+import jdk.nashorn.internal.scripts.JD;
 import service.face.FileService;
 
 public class FileServiceImpl implements FileService {
@@ -92,7 +93,7 @@ public class FileServiceImpl implements FileService {
 		//	-> 임시파일을 저장할 폴더를 설정할 수 있다
 
 		//서블릿컨텍스트 객체
-		ServletContext context = req.getServletContext(); //서버의 현재상황, 동작상황을 알 수 잇는 정보가 들어있음
+		ServletContext context = req.getServletContext(); //서버의 현재상황, 동작상황을 알 수 있는 정보가 들어있음
 
 		//서버가 배포된(설치된) 폴더의 실제 경로에서 tmp폴더를 나타내기
 		String path = context.getRealPath("tmp");
@@ -314,12 +315,14 @@ public class FileServiceImpl implements FileService {
 		}
 
 		//파일 데이터 삽입
+
 		res = fileDao.insertFile(conn, uploadFile);
 		if(res>0) {
 			JDBCTemplate.commit(conn);
 		} else {
 			JDBCTemplate.rollback(conn);
 		}
+
 		
 		//-----------------------------
 		
@@ -327,10 +330,24 @@ public class FileServiceImpl implements FileService {
 		
 		//---------------------------------
 
-
-
-
-
 	} //fileupload() end
+	
+	@Override
+	public List<UploadFile> list() {
+		
+		return fileDao.selectAll(JDBCTemplate.getConnection());
+	}
+	
+	@Override
+	public void filesave(UploadFile up) {
+		
+		int result = fileDao.insertFile(JDBCTemplate.getConnection(), up);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(JDBCTemplate.getConnection());
+		} else {
+			JDBCTemplate.rollback(JDBCTemplate.getConnection());
+		}
+	}
 
 }

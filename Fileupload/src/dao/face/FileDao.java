@@ -1,6 +1,7 @@
 package dao.face;
 
 import java.sql.Connection;
+import java.util.List;
 
 import dto.ParamData;
 import dto.UploadFile;
@@ -25,5 +26,13 @@ public interface FileDao {
 	 * @return 삽입 수행 결과값(1-정상 삽입, 0-실패)
 	 */
 	public int insertFile(Connection conn, UploadFile uploadFile);
+
+	/**
+	 * 파일 정보 테이블 전체 조회
+	 * 
+	 * @param connection - DB연결 객체
+	 * @return 테이블 전체 조회 결과 List
+	 */
+	public List<UploadFile> selectAll(Connection connection);
 
 }

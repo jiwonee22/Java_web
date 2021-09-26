@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import oracle.net.aso.r;
 import service.face.FileService;
 import service.impl.FileServiceImpl;
 
@@ -32,10 +33,8 @@ public class CommonsFileuploadeController extends HttpServlet {
 		
 		fileService.fileupload(req, resp);
 		
-		
-		
-		
-		
+		//파일 목록페이지로 리다이렉트 [응답]
+		resp.sendRedirect("/file/list");
 		//----------------------------------------------------------------------------
 		
 		//전달파라미터 확인 - 데이터 받지 못함
@@ -49,5 +48,6 @@ public class CommonsFileuploadeController extends HttpServlet {
 		// -> 파일 업로드 라이브러리를 이용해야만 가능하다
 	
 	}
+	
 
 }
