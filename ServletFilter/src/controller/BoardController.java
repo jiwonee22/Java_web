@@ -25,7 +25,8 @@ public class BoardController extends HttpServlet {
 		System.out.println("/board/insert [POST]");
 		
 		//한글 인코딩 설정
-		req.setCharacterEncoding("UTF-8");
+		//	-> 서블릿 필터를 통해서 설정한다
+//		req.setCharacterEncoding("UTF-8");
 		
 		System.out.println("title : " + req.getParameter("title"));
 		System.out.println("content : " +req.getParameter("content"));

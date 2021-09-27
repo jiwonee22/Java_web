@@ -24,7 +24,6 @@ import dao.face.FileDao;
 import dao.impl.FileDaoImpl;
 import dto.ParamData;
 import dto.UploadFile;
-import jdk.nashorn.internal.scripts.JD;
 import service.face.FileService;
 
 public class FileServiceImpl implements FileService {
@@ -42,7 +41,6 @@ public class FileServiceImpl implements FileService {
 
 		//응답 출력 스트림 객체 얻기
 		PrintWriter out = null;
-
 		try {
 			out = resp.getWriter();
 		} catch (IOException e) {
@@ -84,28 +82,30 @@ public class FileServiceImpl implements FileService {
 
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		//-------------------------------------------------------------------
-
+		//어떻게 파일을 처리할건지, factory에서 설정한다 -> 옵션 설정을 저장
+		
 		//3. 업로드된 파일아이템의 용량이 설정값보다 작으면 메모리에서 처리한다
 		int maxMem = 1* 1024 * 1024; //1MB
 		factory.setSizeThreshold(maxMem);
+		// 1MB보다 작은 파일이 업로드 되었다면, 메모리에서 처리하기 -> factory에 설정
 
 		//4. 파일아이템의 용량이 설정값보다 크면 임시파일(HDD처리)을 만들어서 처리한다
 		//	-> 임시파일을 저장할 폴더를 설정할 수 있다
 
-		//서블릿컨텍스트 객체
+		//서블릿컨텍스트 객체 -> 서버에 올라가있는 프로그램인 서블릿 컨텍스트 객체  
 		ServletContext context = req.getServletContext(); //서버의 현재상황, 동작상황을 알 수 있는 정보가 들어있음
 
 		//서버가 배포된(설치된) 폴더의 실제 경로에서 tmp폴더를 나타내기
 		String path = context.getRealPath("tmp");
 
-		//tmp폴더 경로 확인
+		//tmp폴더 경로 확인 -> 아직 존재하지 않는 폴더
 		System.out.println(path);
 
-		//임시 저장 폴더 객체
+		//임시 저장 폴더 객체 -> path경로에 파일 객체가 만들어짐
 		File tmpRepository = new File(path);
 
 		//임시 저장 폴더 생성
-		tmpRepository.mkdir();
+		tmpRepository.mkdir(); /* 폴더를 만드는 메소드 */
 
 		//임시파일을 저장하는 폴더를 factory객체에 설정하기
 		factory.setRepository(tmpRepository);
@@ -115,7 +115,7 @@ public class FileServiceImpl implements FileService {
 		//	-> 업로드된 파일이 제한 용량을 넘으면 업로드되지 않도록 설정
 
 		//파일업로드를 수행하는 객체 생성
-		//	-> DiskFileItemFactory객체에 저장해놓은 설정값을 사용한다
+		//	-> DiskFileItemFactory객체(factory)에 저장해놓은 설정값을 사용한다
 		ServletFileUpload upload = new ServletFileUpload(factory);
 
 		//최대 업로드 허용 사이즈
@@ -136,6 +136,7 @@ public class FileServiceImpl implements FileService {
 
 		try {
 			//요청객체(req)에 담겨있는 전달파라미터(multipart)들을 파싱한다
+			//	-> 임시파일업로드까지 수행됨
 			items = upload.parseRequest(req);
 
 		} catch (FileUploadException e) {
@@ -143,9 +144,9 @@ public class FileServiceImpl implements FileService {
 		}
 
 		//전달 파라미터 확인
-		//		for(FileItem item : items) {
-		//			System.out.println(item);
-		//		}
+//		for(FileItem item : items) {
+//			System.out.println(item);
+//		}
 		//---------------------------------------------------
 
 		//7. 파싱된(추출된) 전달파라미터 데이터 처리하기
@@ -165,7 +166,6 @@ public class FileServiceImpl implements FileService {
 		//파일이름을 저장할 DTO 객체 생성
 		UploadFile uploadFile = new UploadFile();
 
-
 		while(iter.hasNext()) {
 
 			FileItem item = iter.next();
@@ -176,7 +176,7 @@ public class FileServiceImpl implements FileService {
 			}
 
 			//--- 2) form-data에 대한 처리 ---
-			if(item.isFormField()) {
+			if(item.isFormField() /* 폼필드인지 구분하는 메소드 */) {
 
 				//--- 폼데이터 처리 방법 ---
 				//	FormField(form-data)는 key=value 쌍으로 전달된다
@@ -192,13 +192,13 @@ public class FileServiceImpl implements FileService {
 				//--------------------------------------------------------
 
 				//--- 기본 처리 방식 ---
-				//				out.println("- - - 폼 필드 - - -<br>");
-				//				out.println("키 : " + item.getFieldName() + "<br>");
-				//				try {
-				//					out.println("값 : " + item.getString("UTF-8") + "<br>");
-				//				} catch (UnsupportedEncodingException e) {
-				//					e.printStackTrace();
-				//				}
+//				out.println("- - - 폼 필드 - - -<br>");
+//				out.println("키 : " + item.getFieldName() + "<br>");
+//				try {
+//					out.println("값 : " + item.getString("UTF-8") + "<br>");
+//				} catch (UnsupportedEncodingException e) {
+//					e.printStackTrace();
+//				}
 				//-----------------------------
 
 
@@ -209,7 +209,7 @@ public class FileServiceImpl implements FileService {
 				String key = item.getFieldName();
 
 				//값 추출하기
-				String value = null;
+				String value = null; //try-catch 바깥쪽에 변수 선언
 
 				try {
 					value = item.getString("UTF-8");
@@ -239,7 +239,7 @@ public class FileServiceImpl implements FileService {
 				//2. 테이블의 컬럼으로 파일의 내용을 저장한다
 				// BLOB타입의 컬럼을 만들어서 사용한다
 				//
-				// **우리는 1번 방식을 사용한다
+				// ** 우리는 1번 방식을 사용한다
 				//--------------------------------------------
 
 				//-- 업로드된 파일의 이름을 시간을 이용해서 변경하기 ---
@@ -307,7 +307,7 @@ public class FileServiceImpl implements FileService {
 		int res = 0;
 		
 		//파라미터 데이터 삽입
-		res = fileDao.insertParam(conn, paramData);
+		res = fileDao.insertParam(conn, paramData); //executeQuery를 수행
 		if(res>0) {
 			JDBCTemplate.commit(conn);
 		} else {
@@ -316,8 +316,8 @@ public class FileServiceImpl implements FileService {
 
 		//파일 데이터 삽입
 
-		res = fileDao.insertFile(conn, uploadFile);
-		if(res>0) {
+		res = fileDao.insertFile(conn, uploadFile); //executeQuery를 수행
+		if(res > 0) {
 			JDBCTemplate.commit(conn);
 		} else {
 			JDBCTemplate.rollback(conn);

@@ -25,6 +25,7 @@ table, th, td {
 <hr>
 
 <a href="/commons/fileupload">COMMONS 파일 업로드</a>
+<a href="/cos/fileupload">COS 파일 업로드</a>
 
 <table>
 <tr>

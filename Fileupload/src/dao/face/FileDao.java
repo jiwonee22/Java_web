@@ -13,7 +13,7 @@ public interface FileDao {
 	 * 
 	 * @param conn - DB연결 객체
 	 * @param paramData - 저장할 전달데이터 DTO 객체
-	 * @return 삽입 수행 결과값
+	 * @return 삽입 수행 결과값(1-정상 삽입, 0-실패)
 	 */
 	public int insertParam(Connection conn, ParamData paramData);
 	

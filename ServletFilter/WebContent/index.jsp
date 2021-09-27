@@ -18,7 +18,7 @@
 <a href="<%=request.getContextPath() %>/board/insert"><button>입력 페이지</button></a>
 
 <%-- JSP 페이지에서 사용하는 모든 상대경로에는
-	컨텍스트 패스를 앞에 추가해놓아야 한다 --%>
+	컨텍스트 패스(지금은 /ServletFilter)를 앞에 추가해놓아야 한다 --%>
 
 </body>
 </html>

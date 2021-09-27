@@ -13,12 +13,13 @@
   <filter>
   	<filter-name>HangulEncodingFilter</filter-name>
   	<filter-class>filter.EncodingFilter</filter-class>
+  	<!-- 클래스가 어디에 있는지 위치 -->
   </filter>
   
   <!-- 필터 클래스가 적용될 URL-Pattern 적용 -->
   <filter-mapping>
   	<filter-name>HangulEncodingFilter</filter-name>
-  	<url-pattern>/*</url-pattern>	
+  	<url-pattern>/*</url-pattern>	<!-- 모든 url에 적용하라는 뜻 -->
   </filter-mapping>
   
   

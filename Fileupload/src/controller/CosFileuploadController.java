@@ -39,7 +39,7 @@ public class CosFileuploadController extends HttpServlet {
 		//---multipart/form-data 검증 ---
 		
 		//파일 업로드 형식이 아닐 경우에 대한 처리
-		if(!ServletFileUpload.isMultipartContent(req)) {
+		if(!ServletFileUpload.isMultipartContent(req)) { //true false 반환 
 			
 			//에러페이지에 전달할 메시지 작성 - MODEL값
 			req.setAttribute("msg", "form태그의 enctype속성이 맞지 않습니다");

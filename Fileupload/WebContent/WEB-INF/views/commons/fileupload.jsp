@@ -15,8 +15,14 @@
 <!-- <form action="/commons/fileupload" method="get" -->
 <!--  enctype="application/x-www-form-urlencoded"> -->
 
+<!-- enctype: 데이터를 어떻게 포장해서 전송할건지 -->
+<!-- "application/x-www-form-urlencoded" : 파일 이름만 전송(기본값) -->
+
 <form action="/commons/fileupload" method="post"
  enctype="multipart/form-data">
+ 
+<!-- "multipart/form-data" : 파일의 내용물까지 전달가능 -->
+<!-- method도 post로 바꿔줘야함 -->
 
 <label>제목 : <input type="text" name="title" /></label><br>
 <label>데이터1 : <input type="text" name="data1" /></label><br>
