@@ -33,8 +33,8 @@ function callback() {
 function printData() {
 	console.log("printData called")
 	
+	//AJAX응답으로 받은 HTML코드를 #result에 반영하기
 	result.innerHTML = httpRequest.responseText
-	//result.jsp에 써있는 RESULT 응답
 }
 
 </script>

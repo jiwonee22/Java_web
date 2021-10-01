@@ -80,7 +80,7 @@ public class AjaxTestController01 extends HttpServlet {
 		list.add(m2);
 		list.add(m3);
 		
-		//list를 JSON Text로 응답
+		//list를 JSON Text로 응답 (마샬링)
 		out.println(new Gson().toJson(list));
 		
 		//--------------------------------------------------------------------
