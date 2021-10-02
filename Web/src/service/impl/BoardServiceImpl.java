@@ -18,4 +18,9 @@ public class BoardServiceImpl implements BoardService {
 					
 	}
 
+	@Override
+	public List<Board> getBoardno() {
+		return boardDao.selectBoardByBoardno(JDBCTemplate.getConnection());
+	}
+	
 }

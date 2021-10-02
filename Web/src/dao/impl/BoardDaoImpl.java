@@ -54,4 +54,19 @@ public class BoardDaoImpl implements BoardDao {
 		return list;
 	}
 	
+	@Override
+	public List<Board> selectBoardByBoardno(Connection connection) {
+
+		String sql = "";
+		sql += "SELECT boardno, title, userid, content, hit, write_date FROM board";
+		sql += " WHERE boardno = ?";
+		
+		List<Board> list = new ArrayList<>();
+		
+		
+		
+		
+		return null;
+	}
+	
 }

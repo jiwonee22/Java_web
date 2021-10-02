@@ -13,6 +13,13 @@ public interface BoardService {
 	 */
 	public List<Board> getList();
 
+	/**
+	 * 게시글 상세 내용을 조회한다
+	 * 
+	 * @return 조회된 게시글 상새 내용
+	 */
+	public List<Board> getBoardno();
+
 	
 
 	
