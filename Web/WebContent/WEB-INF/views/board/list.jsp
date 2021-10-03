@@ -37,7 +37,7 @@ table, th, td {
 <c:forEach var="board" items="${list }">
 <tr>
 	<td>${board.boardNo }</td>
-	<td>${board.title }</td>
+	<td><a href="board/view/?boardno=${board.boardNo }">${board.title }</a></td>
 	<td>${board.userId}</td>
 	<td>${board.content}</td>
 	<td>${board.hit}</td>

@@ -60,8 +60,20 @@ public class BoardDaoImpl implements BoardDao {
 		String sql = "";
 		sql += "SELECT boardno, title, userid, content, hit, write_date FROM board";
 		sql += " WHERE boardno = ?";
-		
+				
 		List<Board> list = new ArrayList<>();
+		
+		try {
+			ps = connection.prepareStatement(sql);
+			
+//			ps.setInt(1, boardno);
+			
+			rs = ps.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		
 		
 		

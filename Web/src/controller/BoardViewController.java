@@ -23,8 +23,8 @@ public class BoardViewController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("/board/view [GET]");
 		
-		List<Board> list = boardService.getBoardno();
 		
+
 		
 		
 	}
