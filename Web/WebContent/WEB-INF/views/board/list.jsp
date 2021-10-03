@@ -36,12 +36,12 @@ table, th, td {
 
 <c:forEach var="board" items="${list }">
 <tr>
-	<td>${board.boardno }</td>
+	<td>${board.boardNo }</td>
 	<td>${board.title }</td>
-	<td>${board.userid}</td>
+	<td>${board.userId}</td>
 	<td>${board.content}</td>
 	<td>${board.hit}</td>
-	<td>${board.write_date}</td>
+	<td>${board.writeDate}</td>
 </tr>
 </c:forEach>
 

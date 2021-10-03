@@ -33,12 +33,12 @@ public class BoardDaoImpl implements BoardDao {
 			while(rs.next() ) {
 				Board board = new Board();
 				
-				board.setBoardno(rs.getInt("boardno"));
+				board.setBoardNo(rs.getInt("boardno"));
 				board.setTitle(rs.getString("title"));
-				board.setUserid(rs.getString("userid"));
+				board.setUserId(rs.getString("userid"));
 				board.setContent(rs.getString("content"));
 				board.setHit(rs.getInt("hit"));
-				board.setWrite_date(rs.getDate("write_date"));
+				board.setWriteDate(rs.getDate("write_date"));
 				
 				list.add(board);
 		

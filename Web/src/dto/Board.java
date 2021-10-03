@@ -4,55 +4,68 @@ import java.util.Date;
 
 public class Board {
 	
-	private int boardno;
+	private int boardNo;
 	private String title;
-	private String userid;
+	private String userId;
 	private String content;
 	private int hit;
-	private Date write_date;
+	private Date writeDate;
 	
 	@Override
 	public String toString() {
-		return "Board [boardno=" + boardno + ", title=" + title + ", userid=" + userid + ", content=" + content
-				+ ", hit=" + hit + ", write_date=" + write_date + "]";
+		return "Board [boardNo=" + boardNo + ", title=" + title + ", userId=" + userId + ", content=" + content
+				+ ", hit=" + hit + ", writeDate=" + writeDate + "]";
 	}
-	public int getBoardno() {
-		return boardno;
+
+	public int getBoardNo() {
+		return boardNo;
 	}
-	public void setBoardno(int boardno) {
-		this.boardno = boardno;
+
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getUserid() {
-		return userid;
+
+	public String getUserId() {
+		return userId;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public int getHit() {
 		return hit;
 	}
+
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	public Date getWrite_date() {
-		return write_date;
+
+	public Date getWriteDate() {
+		return writeDate;
 	}
-	public void setWrite_date(Date write_date) {
-		this.write_date = write_date;
+
+	public void setWriteDate(Date writeDate) {
+		this.writeDate = writeDate;
 	}
 	
 	
+
 
 }
