@@ -1,31 +1,32 @@
-package controller;
+package web.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import dto.Board;
-import service.face.BoardService;
-import service.impl.BoardServiceImpl;
-
-@WebServlet("/board/view")
-public class BoardViewController extends HttpServlet {
+@WebServlet("/member/logout")
+public class MemberLogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private BoardService boardService = new BoardServiceImpl();
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/board/view [GET]");
-		
-		
+		System.out.println("/member/logout [GET]");
 
-		
-		
+		//세션 객체
+		HttpSession session = req.getSession();
+
+		//세션 삭제 - 로그아웃
+		session.invalidate();
+
+		//메인화면으로 리다이렉트
+		resp.sendRedirect("/main");
+
 	}
+
+
 }

@@ -1,4 +1,4 @@
-package common;
+package web.common;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

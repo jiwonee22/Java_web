@@ -1,28 +1,28 @@
-package dto;
+package web.dto;
 
 import java.util.Date;
 
 public class Board {
 	
-	private int boardNo;
+	private int boardno;
 	private String title;
-	private String userId;
+	private String userid;
 	private String content;
 	private int hit;
 	private Date writeDate;
 	
 	@Override
 	public String toString() {
-		return "Board [boardNo=" + boardNo + ", title=" + title + ", userId=" + userId + ", content=" + content
+		return "Board [boardno=" + boardno + ", title=" + title + ", userid=" + userid + ", content=" + content
 				+ ", hit=" + hit + ", writeDate=" + writeDate + "]";
 	}
 
-	public int getBoardNo() {
-		return boardNo;
+	public int getBoardno() {
+		return boardno;
 	}
 
-	public void setBoardNo(int boardNo) {
-		this.boardNo = boardNo;
+	public void setBoardno(int boardno) {
+		this.boardno = boardno;
 	}
 
 	public String getTitle() {
@@ -33,12 +33,12 @@ public class Board {
 		this.title = title;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUserid() {
+		return userid;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	public String getContent() {
@@ -67,5 +67,6 @@ public class Board {
 	
 	
 
-
+	
+	
 }

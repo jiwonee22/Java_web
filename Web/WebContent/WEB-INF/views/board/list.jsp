@@ -3,43 +3,27 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<c:import url="/WEB-INF/views/layout/header.jsp" />
 
-<style type="text/css">
+<div class="container">
 
-table, th, td {
-	border : 1px solid black;
-	border-collapse: collapse;
-}
+<h1>게시글 목록</h1>
 
-</style>
-
-</head>
-<body>
-
-<h1>글 목록 전부 보여주기</h1>
-
-<table>
+<table class="table table-striped table-hover table-condensed">
 <tr>
 	<th>번호</th>
 	<th>제목</th>
 	<th>작성자</th>
-	<th>게시글 내용</th>
 	<th>조회수</th>
 	<th>작성날짜</th>
 </tr>
 
 
-<c:forEach var="board" items="${list }">
+<c:forEach items="${boardList }" var="board">
 <tr>
-	<td>${board.boardNo }</td>
-	<td><a href="board/view/?boardno=${board.boardNo }">${board.title }</a></td>
-	<td>${board.userId}</td>
-	<td>${board.content}</td>
+	<td>${board.boardno }</td>
+	<td><a href="/board/view?boardno=${board.boardno }">${board.title }</a></td>
+	<td>${board.userid}</td>
 	<td>${board.hit}</td>
 	<td>${board.writeDate}</td>
 </tr>
@@ -48,6 +32,7 @@ table, th, td {
 
 </table>
 
+</div>
+<c:import url="/WEB-INF/views/layout/paging.jsp" />
 
-</body>
-</html>
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
