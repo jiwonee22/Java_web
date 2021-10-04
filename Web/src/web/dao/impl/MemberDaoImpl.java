@@ -39,5 +39,35 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return result;
 	}
-
+	
+	@Override
+	public int selectCntMemberByUseridUserpw(Connection conn, Member member) {
+		
+		String sql = "";
+		sql += "SELECT count(*) FROM member";
+		sql += " WHERE userid = ?";
+		sql += " AND userpw = ?";
+		
+		int cnt = 0;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setNString(1, member.getUserid());
+			ps.setNString(2, member.getUserpw());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				cnt = rs.getInt(1);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		return cnt;
+	}
 }

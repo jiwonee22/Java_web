@@ -50,4 +50,34 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}	
 
+	@Override
+	public Member getLoginMember(HttpServletRequest req) {
+		
+		Member member = new Member();
+		
+		String userid = req.getParameter("userid");
+		String userpw = req.getParameter("userpw");
+		
+		if(userid != null && !"".equals(userid)) {
+			member.setUserid(userid);
+		}
+		
+		if(userpw != null && !"".equals(userpw)) {
+			member.setUserpw(userpw);
+		}
+		
+		return member;
+	}
+	
+	@Override
+	public boolean login(Member member) {
+		
+		if(memberDao.selectCntMemberByUseridUserpw(JDBCTemplate.getConnection(), member) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	
+	
+	}
 }

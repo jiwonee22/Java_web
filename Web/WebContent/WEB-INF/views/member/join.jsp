@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +12,7 @@
 <body>
 <h1>회원가입</h1>
 
-<form action="/member/join" method="post">
+<form action="<%=request.getContextPath() %>/member/join" method="post">
 
 <label>ID
 <input type="text" id="userid" name="userid" /></label><br>

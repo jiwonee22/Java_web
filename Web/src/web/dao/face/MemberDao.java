@@ -15,4 +15,14 @@ public interface MemberDao {
 	 */
 	public int insert(Connection conn, Member memberinfo);
 
+	
+	/**
+	 * DB에서 아이디, 비밀번호 조회
+	 * 
+	 * @param conn
+	 * @param member
+	 * @return 
+	 */
+	public int selectCntMemberByUseridUserpw(Connection conn, Member member);
+
 }
