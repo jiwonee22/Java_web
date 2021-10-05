@@ -1,6 +1,7 @@
 package web.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -196,6 +197,39 @@ public class BoardDaoImpl implements BoardDao {
 		
 	}
 
+	
+	@Override
+	public int insert(Connection conn, Board board) {
+		
+		String sql = "";
+		sql += "INSERT INTO board(boardno, title, userid, content, hit, write_date)";
+		sql += " VALUES(boardno_seq.nextval, ?, ?, ?, ?, sysdate)";
+		
+		int result = 0;
+		
+		try {
+			Board newboard = new Board();
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, newboard.getTitle());
+			ps.setString(2, newboard.getUserid());
+			ps.setString(3, newboard.getContent());
+			ps.setInt(4, newboard.getHit());
+			
+			rs = ps.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		
+		return result;
+		
+		
+	}
 
 
 

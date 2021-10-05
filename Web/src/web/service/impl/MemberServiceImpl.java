@@ -15,32 +15,32 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member getJoinMember(HttpServletRequest req) {
 
-		Member memberinfo = new Member();
+		Member member = new Member();
 		
 		String userid = req.getParameter("userid");
 		String userpw = req.getParameter("userpw");
 		String usernick = req.getParameter("usernick");
 		
 		if(userid != null && !"".equals(userid)) {
-			memberinfo.setUserid(userid);
+			member.setUserid(userid);
 		}
 		
 		if(userpw != null && !"".equals(userpw)) {
-			memberinfo.setUserpw(userpw);
+			member.setUserpw(userpw);
 		}
 		
 		if(usernick != null && !"".equals(usernick)) {
-			memberinfo.setUsernick(usernick);
+			member.setUsernick(usernick);
 		}
 		
-		return memberinfo;
+		return member;
 	}
 		
 	@Override
-	public void join(Member memberinfo) {
+	public void join(Member member) {
 		
 		int result = 0;
-		result = memberDao.insert(JDBCTemplate.getConnection(), memberinfo);
+		result = memberDao.insert(JDBCTemplate.getConnection(), member);
 		
 		if( result > 0 ) {
 			JDBCTemplate.commit(JDBCTemplate.getConnection());
@@ -79,5 +79,10 @@ public class MemberServiceImpl implements MemberService {
 		}
 	
 	
+	}
+	
+	@Override
+	public Member info(Member member) {
+		return memberDao.selectMemberByUserid(JDBCTemplate.getConnection(), member);
 	}
 }

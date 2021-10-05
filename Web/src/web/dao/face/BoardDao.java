@@ -51,6 +51,15 @@ public interface BoardDao {
 	 * 
 	 */
 	public int UpdateHit(Connection conn, Board boardno);
+	
+	/**
+	 * 
+	 * @param conn
+	 * @param board
+	 * @return
+	 */
+	public int insert(Connection conn, Board board);
+
 
 
 

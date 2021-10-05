@@ -5,6 +5,7 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
+
 <div class="container">
 
 <h1>게시글 목록</h1>
@@ -18,7 +19,6 @@
 	<th>작성날짜</th>
 </tr>
 
-
 <c:forEach items="${boardList }" var="board">
 <tr>
 	<td>${board.boardno }</td>
@@ -31,6 +31,20 @@
 
 
 </table>
+
+<c:if test ="${empty login }">
+
+<button onclick="location.href = '/main';">글쓰기</button>
+
+</c:if>
+
+<c:if test ="${not empty login }">
+
+<button onclick="location.href = '/board/write';">글쓰기</button>
+
+</c:if>
+
+
 
 </div>
 <c:import url="/WEB-INF/views/layout/paging.jsp" />

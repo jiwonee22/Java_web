@@ -8,36 +8,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import web.dto.Member;
-import web.service.face.MemberService;
-import web.service.impl.MemberServiceImpl;
+import web.dto.Board;
+import web.service.face.BoardService;
+import web.service.impl.BoardServiceImpl;
 
-@WebServlet("/member/join")
-public class MemberJoinController extends HttpServlet {
+@WebServlet("/board/write")
+public class BoardWriteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	MemberService memberService = new MemberServiceImpl();
-	
+	private BoardService boardService = new BoardServiceImpl();
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/member/join [GET]");
+		System.out.println("/board/write [GET]");
 		
-		req.getRequestDispatcher("/WEB-INF/views/member/join.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/member/join [POST]");
+		System.out.println("/board/write [POST]");
 		
-		Member member = memberService.getJoinMember(req);
+		Board board = new Board();
 		
-		memberService.join(member);
-		
-		req.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(req, resp);
-		
-		
-
-		
+		boardService.write(board);	
+			
+	
 	}
+	
+	
+	
+	
 	
 }

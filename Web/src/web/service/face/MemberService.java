@@ -20,7 +20,7 @@ public interface MemberService {
 	 * 
 	 * @param memberinfo
 	 */
-	public void join(Member memberinfo);
+	public void join(Member member);
 
 	/**
 	 * 요청 파라미터 얻기
@@ -37,6 +37,13 @@ public interface MemberService {
 	 * @return true 로그인 성공, false 로그인 실패
 	 */
 	public boolean login(Member member);
+
+	/**
+	 * 
+	 * @param member
+	 * @return
+	 */
+	public Member info(Member member);
 
 	
 

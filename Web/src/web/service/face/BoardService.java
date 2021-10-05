@@ -53,6 +53,14 @@ public interface BoardService {
 	 */
 	public Board view(Board boardno);
 
+	
+	/** 
+	 * board 게시글 작성
+	 * 
+	 * @param board
+	 */
+	public void write(Board board);
+
 
 
 	

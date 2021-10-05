@@ -308,7 +308,7 @@ public class FileServiceImpl implements FileService {
 		
 		//파라미터 데이터 삽입
 		res = fileDao.insertParam(conn, paramData); //executeQuery를 수행
-		if(res>0) {
+		if(res > 0) {
 			JDBCTemplate.commit(conn);
 		} else {
 			JDBCTemplate.rollback(conn);
