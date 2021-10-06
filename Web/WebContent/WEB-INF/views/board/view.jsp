@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
 <script type="text/javascript">
@@ -26,40 +26,52 @@ $(document).ready(function() {
 
 <div class="container">
 
-<h1> 게시글 상세 보기</h1>
+<h1>게시글 상세보기</h1>
 <hr>
 
 <table class="table table-bordered">
 <tr>
-	<td>번호 : ${viewBoard.boardno }</td>
-</tr>
-<tr>
-	<td>제목 : ${viewBoard.title }</td>
-</tr>
-<tr>
-	<td>작성자 : ${viewBoard.userid }</td>
-</tr>
-<tr>	
-	<td>조회수 : ${viewBoard.hit }</td>
-</tr>
-<tr>	
-	<td>작성날짜 : ${viewBoard.writeDate }</td>	
+<td class="info">글번호</td><td colspan="3">${viewBoard.boardno }</td>
 </tr>
 
 <tr>
-	<td>내용</td>
+<td class="info">제목</td><td colspan="3">${viewBoard.title }</td>
 </tr>
+
 <tr>
-	<td>${viewBoard.content }</td>
+<td class="info">아이디</td><td>${viewBoard.userid }</td>
+<td class="info">닉네임</td><td>${nick }</td>
 </tr>
+
+<tr>
+<td class="info">조회수</td><td>${viewBoard.hit }</td>
+<td class="info">추천수</td><td>[ 추후 추가 ]</td>
+</tr>
+
+<tr>
+<td class="info">작성일</td><td colspan="3">${viewBoard.writeDate }</td>
+</tr>
+
+<tr><td class="info"  colspan="4">본문</td></tr>
+
+<tr><td colspan="4">${viewBoard.content }</td></tr>
 
 </table>
 
+<!-- 첨부파일 -->
+<div>
+<c:if test="${not empty boardFile }">
+<a href="/upload/${boardFile.storedname }" download="${boardFile.originname }">${boardFile.originname }</a>
+</c:if>
+</div>
+
 <div class="text-center">	
 	<button id="btnList" class="btn btn-primary">목록</button>
-	<button id="btnUpdate" class="btn btn-info">수정</button>
+	<a href="/board/update?boardno=${viewBoard.boardno }"><button id="btnUpdate" class="btn btn-info">수정</button></a>
 	<button id="btnDelete" class="btn btn-danger">삭제</button>
 </div>
 
+
 </div>
+
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

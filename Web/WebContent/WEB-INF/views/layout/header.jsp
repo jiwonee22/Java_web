@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> : : : Jiwon : : : </title>
+<title> : : : JIWON : : : </title>
 
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -18,15 +18,13 @@
 <style type="text/css">
 #header, #footer {
 	text-align: center;
-	background: #a8cf72;
+	background: #a9ebba;
 }
-
 </style>
 
 </head>
 <body>
 
 <div id="header">
-	<h1>Jiwon</h1>
-
+	<h1><a href="/">JIWON</a></h1>
 </div>

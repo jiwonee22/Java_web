@@ -85,7 +85,7 @@ public class FileServiceImpl implements FileService {
 		//어떻게 파일을 처리할건지, factory에서 설정한다 -> 옵션 설정을 저장
 		
 		//3. 업로드된 파일아이템의 용량이 설정값보다 작으면 메모리에서 처리한다
-		int maxMem = 1* 1024 * 1024; //1MB
+		int maxMem = 1 * 1024 * 1024; //1MB
 		factory.setSizeThreshold(maxMem);
 		// 1MB보다 작은 파일이 업로드 되었다면, 메모리에서 처리하기 -> factory에 설정
 

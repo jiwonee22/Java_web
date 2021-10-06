@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @WebServlet("/member/logout")
 public class MemberLogoutController extends HttpServlet {
@@ -15,18 +14,12 @@ public class MemberLogoutController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/member/logout [GET]");
+		
+		//세션 해제
+		req.getSession().invalidate();
 
-		//세션 객체
-		HttpSession session = req.getSession();
-
-		//세션 삭제 - 로그아웃
-		session.invalidate();
-
-		//메인화면으로 리다이렉트
-		resp.sendRedirect("/main");
-
+		//메인페이지로 리다이렉트
+		resp.sendRedirect("/");
+		
 	}
-
-
 }
