@@ -107,7 +107,25 @@ public interface BoardDao {
 	 * @param conn
 	 * @param board
 	 */
-	public void update(Connection conn, Board board);
+	public int update(Connection conn, Board board);
+
+	/**
+	 * 게시글 파일 삭제
+	 * 
+	 * @param conn
+	 * @param boardno 
+	 * @return
+	 */
+	public int deleteFile(Connection conn, Board boardno);
+
+	/** 게시글 자체 삭제
+	 * 
+	 * @param conn
+	 * @param boardno
+	 * @return
+	 */
+	public int delete(Connection conn, Board boardno);
+
 
 }
 

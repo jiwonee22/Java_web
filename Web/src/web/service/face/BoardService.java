@@ -85,9 +85,17 @@ public interface BoardService {
 	 * 게시글 수정
 	 * 
 	 * 
-	 * @param updateBoard - 수정할 객체
+	 * @param req - 요청 정보
 	 */
-	public void update(Board updateBoard);
+	public void update(HttpServletRequest req);
+
+	/**
+	 * 게시글 삭제
+	 * 
+	 * 
+	 * @param boardno - 요청 저보
+	 */
+	public void delete(Board boardno);
 
 
 	

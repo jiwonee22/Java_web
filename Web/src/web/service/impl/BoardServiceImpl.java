@@ -318,23 +318,199 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void update(Board updateBoard) {
-
+	public void update(HttpServletRequest req) {
+		//게시글 정보 DTO 객체
 		Board board = null;
 
-		board = boardDao.selectByBoardno(JDBCTemplate.getConnection(), updateBoard);
+		//첨부파일 정보 DTO 객체
+		BoardFile boardFile = null;
 
-		boardDao.update(JDBCTemplate.getConnection(), board);
 
 
+
+		//파일업로드 형태의 데이터가 맞는지 검사
+		boolean isMultipart = false;
+		isMultipart = ServletFileUpload.isMultipartContent(req);
+
+		if( !isMultipart ) {
+			System.out.println("[ERROR] multipart/form-data 형식이 아님");
+
+			return; //update() 메소드 중단
+		}
+
+
+
+
+		//게시글 정보를 저장할 DTO객체 생성
+		board = new Board();
+
+
+
+
+		//디스크기반 아이템 팩토리
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+
+		//메모리 처리 사이즈 지정
+		factory.setSizeThreshold(1 * 1024 * 1024); //1MB
+
+		//임시 저장소 설정
+		File repository = new File(req.getServletContext().getRealPath("tmp"));
+		repository.mkdir(); //임시 저장소 폴더 생성
+		factory.setRepository(repository); //임시 저장소 폴더 지정
+
+
+
+
+		//파일업로드 객체 생성
+		ServletFileUpload upload = new ServletFileUpload(factory);
+
+		//업로드 용량 제한
+		upload.setFileSizeMax(10 * 1024 * 1024); //10MB
+
+
+
+
+		//전달 데이터 파싱
+		List<FileItem> items = null;
+		try {
+			items = upload.parseRequest(req);
+		} catch (FileUploadException e) {
+			e.printStackTrace();
+		}
+
+		//파싱된 전달파라미터를 처리할 반복자
+		Iterator<FileItem> iter = items.iterator();
+
+		while( iter.hasNext() ) { //모든 요청 정보 처리
+			FileItem item = iter.next();
+
+
+
+			//--- 1) 빈 파일에 대한 처리 ---
+			if( item.getSize() <= 0 ) {
+				continue; //빈 파일은 무시하고 다음 FileItem처리로 넘긴다
+			}
+
+
+
+			//--- 2) form-data에 대한 처리 ---
+			if( item.isFormField() ) {
+				//키 추출하기
+				String key = item.getFieldName();
+
+				//값 추출하기
+				String value = null;
+				try {
+					value = item.getString("UTF-8");
+				} catch (UnsupportedEncodingException e1) {
+					e1.printStackTrace();
+				}
+
+				//키(name)에 따라서 value저장하기
+				if( "boardno".equals(key) ) {
+					board.setBoardno( Integer.parseInt(value) );
+				} else if( "title".equals(key) ) {
+					board.setTitle( value );
+				} else if( "content".equals(key) ) {
+					board.setContent( value );
+				}
+
+			} //if( item.isFormField() ) end
+
+
+
+			//--- 3) 파일에 대한 처리 ---
+			if( !item.isFormField() ) {
+
+				//UUID 생성
+				UUID uuid = UUID.randomUUID(); //랜덤 UUID
+				String uid = uuid.toString().split("-")[0]; //8자리 uuid
+
+				//로컬 저장소의 업로드 폴더
+				File upFolder = new File(req.getServletContext().getRealPath("upload"));
+				upFolder.mkdir(); //폴더 생성
+
+				//업로드 파일 객체
+				String origin = item.getName(); //원본파일명
+				String stored = origin + "_" + uid; //원본파일명_uid
+				File up = new File(upFolder, stored);
+
+
+
+				try {
+					item.write(up); //실제 업로드(임시파일을 최종결과파일로 생성함)
+					item.delete(); //임시파일을 삭제
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+
+
+				//업로드된 파일의 정보 저장
+				boardFile = new BoardFile();
+				boardFile.setOriginname(origin);
+				boardFile.setStoredname(stored);
+				boardFile.setFilesize( (int)item.getSize() );
+
+			} //if( !item.isFormField() ) end
+		} //while( iter.hasNext() ) end
+
+
+
+
+		//DB연결 객체
+		Connection conn = JDBCTemplate.getConnection();
+
+
+
+		//게시글 정보가 있을 경우
+		if(board != null) {
+
+			if( boardDao.update(conn, board) > 0 ) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+
+
+			//첨부파일 정보가 있을 경우
+			if(boardFile != null) {
+				boardFile.setBoardno(board.getBoardno()); //게시글 번호 입력 (FK)
+
+				if( boardDao.insertFile(conn, boardFile) > 0 ) {
+					JDBCTemplate.commit(conn);
+				} else {
+					JDBCTemplate.rollback(conn);
+				}
+			}
+
+
+
+		}
 
 	}
-
-
-
+	
+	@Override
+	public void delete(Board boardno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		 	
+		
+			//deleteFile먼저 실행, 무결성
+			if(boardDao.deleteFile(conn, boardno) > 0) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			if(boardDao.delete(conn, boardno) > 0) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+		
+	}
 }
-
-
 
 
 

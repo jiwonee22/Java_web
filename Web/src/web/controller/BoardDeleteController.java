@@ -25,28 +25,9 @@ public class BoardDeleteController extends HttpServlet {
 
 		Board boardno = boardService.getBoardno(req);
 
-		Board viewBoard = boardService.view(boardno);
-
-		req.setAttribute("viewBoard", viewBoard);
-
-		BoardFile boardFile = boardService.viewFile(viewBoard);
-
-		req.setAttribute("boardFile", boardFile);
-
-		req.getRequestDispatcher("/WEB-INF/views/board/delete.jsp").forward(req, resp);
-
-
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/board/delete [POST]");
-		
-		Board deleteBoard = new Board();
-		
-//		boardService.delete(deleteBoard);
+		boardService.delete(boardno);
 		
 		resp.sendRedirect("/board/list");
-	}
 
+	}
 }

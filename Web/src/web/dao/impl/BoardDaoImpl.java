@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import oracle.net.aso.p;
 import web.common.JDBCTemplate;
 import web.dao.face.BoardDao;
 import web.dto.Board;
@@ -403,12 +402,15 @@ public class BoardDaoImpl implements BoardDao {
 	}
 	
 	@Override
-	public void update(Connection conn, Board board) {
+	public int update(Connection conn, Board board) {
 
 		String sql = "";
 		sql += "UPDATE board";
-		sql += " SET title = ?, content = ?";
+		sql += " SET title = ?,";
+		sql += " content = ?";
 		sql += " WHERE boardno = ?";
+		
+		int res = -1;
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -416,16 +418,63 @@ public class BoardDaoImpl implements BoardDao {
 			ps.setString(2, board.getContent() );
 			ps.setInt(3, board.getBoardno() );
 			
-			rs = ps.executeQuery();
+			res = ps.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(rs);
 			JDBCTemplate.close(ps);
 		}
-	
+		return res;
 				
+	}
+	
+	@Override
+	public int delete(Connection conn, Board boardno) {
+		
+		String sql = "";
+		sql += "DELETE boardfile";
+		sql += " WHERE boardno = ? ";
+		
+		int res = -1;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, boardno.getBoardno());
+			
+			res = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		return res;
+	}
+	
+	@Override
+	public int deleteFile(Connection conn, Board boardno) {
+		
+		String sql = "";
+		sql += "DELETE board";
+		sql += " WHERE boardno = ? ";
+		
+		int res = -1;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, boardno.getBoardno());
+			
+			res = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		return res;
 		
 	}
 }

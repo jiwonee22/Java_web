@@ -23,14 +23,20 @@ public class BoardUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("/board/update [GET]");
 		
+		//전달 파라미터 얻기 - boardno
 		Board boardno = boardService.getBoardno(req);
 		
+		//상세보기 결과 조회
 		Board updateBoard = boardService.view(boardno);
+
+		//닉네임 가져오기(닉네임은 member객체에만 있고 board객체에는 없기때문에.)
+		req.setAttribute("usernick", boardService.getNick(updateBoard));
 		
-		req.setAttribute("viewBoard", updateBoard);
+		//조회결과 model값 전달
+		req.setAttribute("updateBoard", updateBoard);
 		
+		//첨부파일 정보 view에 전달
 		BoardFile boardFile = boardService.viewFile(updateBoard);
-		
 		req.setAttribute("boardFile", boardFile);
 				
 		req.getRequestDispatcher("/WEB-INF/views/board/update.jsp").forward(req, resp);
@@ -41,12 +47,9 @@ public class BoardUpdateController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("/board/update [POST]");
 		
-		Board updateBoard = new Board();
+		boardService.update(req);
 		
-		boardService.update(updateBoard);
-		
-		req.getRequestDispatcher("/WEB-INF/views/board/list.jsp").forward(req, resp);
-	
+		resp.sendRedirect("/board/view");
 		
 		
 		

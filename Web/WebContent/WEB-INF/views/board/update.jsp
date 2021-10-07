@@ -5,11 +5,8 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
-
 <!-- 스마트에디터 2 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-
-
 
 <script type="text/javascript">
 //<form>태그에 submit이 수행되면 스마트에디터에 작성한 내용을 <textarea>에 반영한다
@@ -40,8 +37,7 @@ $(document).ready(function() {
 	
 	//목록버튼 동작
 	$("#btnList").click(function() {
-		$(location).attr("href", "/board/list")
-		
+		history.go(-1);
 		
 	});
 	
@@ -65,7 +61,7 @@ $(document).ready(function() {
 <input type="hidden" name="boardno" value="${updateBoard.boardno }">
 
 <table class="table table-bordered">
-<tr><td class="info">아이디</td><td>${userid }</td></tr>
+<tr><td class="info">아이디</td><td>${updateBoard.userid }</td></tr>
 <tr><td class="info">닉네임</td><td>${usernick }</td></tr>
 <tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%" value ="${updateBoard.title }"/></td></tr>
 <tr><td class="info" colspan="2">본문</td></tr>
@@ -73,16 +69,16 @@ $(document).ready(function() {
 </table>
 
 <!-- 첨부파일 처리 -->
-<c:if test="${empty boardFile }">
+<c:if test="${empty boardFile }"> <!-- boardFile 없음 -->
 <div id="selectfile">
 첨부파일 <input type="file" name="file" />
 </div>
 </c:if>
-<c:if test="${not empty boardFile }">
+<c:if test="${not empty boardFile }"> <!-- boardFile 있음 -->
 <div id="viewfile">
 첨부파일 수정 <input type="file" name="file" /> <br>
 
-<div>기존 파일 : ${boardFile.originname }</div>
+<div>기존 파일 : ${boardFile.originname } </div>
 </div>
 </c:if>
 
