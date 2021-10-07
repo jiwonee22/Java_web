@@ -85,7 +85,7 @@ public interface BoardService {
 	 * 게시글 수정
 	 * 
 	 * 
-	 * @param updateBoard
+	 * @param updateBoard - 수정할 객체
 	 */
 	public void update(Board updateBoard);
 

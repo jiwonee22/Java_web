@@ -45,7 +45,7 @@ $(document).ready(function() {
 
 <tr>
 <td class="info">조회수</td><td>${viewBoard.hit }</td>
-<td class="info">추천수</td><td>[ 추후 추가 ]</td>
+<td class="info">추천수</td><td>[ 나중에 추가하기 ]</td>
 </tr>
 
 <tr>
@@ -68,7 +68,7 @@ $(document).ready(function() {
 <div class="text-center">	
 	<button id="btnList" class="btn btn-primary">목록</button>
 	<a href="/board/update?boardno=${viewBoard.boardno }"><button id="btnUpdate" class="btn btn-info">수정</button></a>
-	<button id="btnDelete" class="btn btn-danger">삭제</button>
+	<a href="/board/delete?boardno=${viewBoard.boardno }"><button id="btnDelete" class="btn btn-danger">삭제</button></a>
 </div>
 
 

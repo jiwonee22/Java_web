@@ -62,6 +62,7 @@ $(document).ready(function() {
 
 <div>
 <form action="/board/update" method="post" enctype="multipart/form-data">
+<input type="hidden" name="boardno" value="${updateBoard.boardno }">
 
 <table class="table table-bordered">
 <tr><td class="info">아이디</td><td>${userid }</td></tr>
@@ -71,7 +72,21 @@ $(document).ready(function() {
 <tr><td colspan="2"><textarea id="content" name="content">${updateBoard.content }</textarea></td></tr>
 </table>
 
+<!-- 첨부파일 처리 -->
+<c:if test="${empty boardFile }">
+<div id="selectfile">
 첨부파일 <input type="file" name="file" />
+</div>
+</c:if>
+<c:if test="${not empty boardFile }">
+<div id="viewfile">
+첨부파일 수정 <input type="file" name="file" /> <br>
+
+<div>기존 파일 : ${boardFile.originname }</div>
+</div>
+</c:if>
+
+
 
 </form>
 </div>

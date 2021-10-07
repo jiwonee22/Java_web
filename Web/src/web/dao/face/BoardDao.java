@@ -96,7 +96,7 @@ public interface BoardDao {
 	/**
 	 * 게시글 선택
 	 * 
-	 * @param updateBoard
+	 * @param updateBoard - 수정할 게시글
 	 * @return board
 	 */
 	public Board selectByBoardno(Connection conn, Board updateBoard);

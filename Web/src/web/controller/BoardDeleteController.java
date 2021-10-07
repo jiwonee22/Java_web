@@ -13,46 +13,40 @@ import web.dto.BoardFile;
 import web.service.face.BoardService;
 import web.service.impl.BoardServiceImpl;
 
-@WebServlet("/board/update")
-public class BoardUpdateController extends HttpServlet {
+@WebServlet("/board/delete")
+public class BoardDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private BoardService boardService = new BoardServiceImpl();
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/board/update [GET]");
-		
+		System.out.println("/board/delete [GET]");
+
 		Board boardno = boardService.getBoardno(req);
-		
-		Board updateBoard = boardService.view(boardno);
-		
-		req.setAttribute("viewBoard", updateBoard);
-		
-		BoardFile boardFile = boardService.viewFile(updateBoard);
-		
+
+		Board viewBoard = boardService.view(boardno);
+
+		req.setAttribute("viewBoard", viewBoard);
+
+		BoardFile boardFile = boardService.viewFile(viewBoard);
+
 		req.setAttribute("boardFile", boardFile);
-				
-		req.getRequestDispatcher("/WEB-INF/views/board/update.jsp").forward(req, resp);
-		
+
+		req.getRequestDispatcher("/WEB-INF/views/board/delete.jsp").forward(req, resp);
+
+
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/board/update [POST]");
+		System.out.println("/board/delete [POST]");
 		
-		Board updateBoard = new Board();
+		Board deleteBoard = new Board();
 		
-		boardService.update(updateBoard);
+//		boardService.delete(deleteBoard);
 		
-		req.getRequestDispatcher("/WEB-INF/views/board/list.jsp").forward(req, resp);
-	
-		
-		
-		
-		
+		resp.sendRedirect("/board/list");
 	}
-	
-	
 
 }

@@ -311,7 +311,7 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 	}
-	
+
 	@Override
 	public BoardFile viewFile(Board viewBoard) {
 		return boardDao.selectFile(JDBCTemplate.getConnection(), viewBoard);
@@ -320,15 +320,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void update(Board updateBoard) {
 
-		Board board = new Board();
+		Board board = null;
+
 		board = boardDao.selectByBoardno(JDBCTemplate.getConnection(), updateBoard);
 
-		Connection conn = JDBCTemplate.getConnection();
-		boardDao.update(conn, board);
+		boardDao.update(JDBCTemplate.getConnection(), board);
+
 
 
 	}
-	
+
 
 
 }
