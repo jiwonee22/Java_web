@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import web.dto.Board;
-import web.dto.BoardFile;
 import web.service.face.BoardService;
 import web.service.impl.BoardServiceImpl;
 

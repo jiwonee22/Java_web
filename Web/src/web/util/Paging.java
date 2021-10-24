@@ -28,7 +28,7 @@ public class Paging {
 		makePaging();
 	}
 	
-	//총 게시글 수, 현제 페이지번호를 입력하는 생성자
+	//총 게시글 수, 현재 페이지번호를 입력하는 생성자
 	public Paging(int totalCount, int curPage) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
@@ -36,7 +36,7 @@ public class Paging {
 		makePaging();
 	}
 
-	//총 게시글 수, 현제 페이지번호, 보여질 게시글 수를 입력하는 생성자
+	//총 게시글 수, 현재 페이지번호, 보여질 게시글 수를 입력하는 생성자
 	public Paging(int totalCount, int curPage, int listCount) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
@@ -45,7 +45,7 @@ public class Paging {
 		makePaging();
 	}
 	
-	//총 게시글 수, 현제 페이지번호, 보여질 게시글 수, 보여질 페이지 수를 입력하는 생성자
+	//총 게시글 수, 현재 페이지번호, 보여질 게시글 수, 보여질 페이지 수를 입력하는 생성자
 	public Paging(int totalCount, int curPage, int listCount, int pageCount) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);

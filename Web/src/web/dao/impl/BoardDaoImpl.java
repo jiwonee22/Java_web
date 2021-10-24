@@ -433,7 +433,7 @@ public class BoardDaoImpl implements BoardDao {
 	public int delete(Connection conn, Board boardno) {
 		
 		String sql = "";
-		sql += "DELETE boardfile";
+		sql += "DELETE board";
 		sql += " WHERE boardno = ? ";
 		
 		int res = -1;
@@ -457,7 +457,7 @@ public class BoardDaoImpl implements BoardDao {
 	public int deleteFile(Connection conn, Board boardno) {
 		
 		String sql = "";
-		sql += "DELETE board";
+		sql += "DELETE boardfile";
 		sql += " WHERE boardno = ? ";
 		
 		int res = -1;

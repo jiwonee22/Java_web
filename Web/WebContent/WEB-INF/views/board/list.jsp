@@ -50,7 +50,7 @@ $(document).ready(function() {
 	<button id="btnWrite" class="btn btn-primary">글쓰기</button>
 </div>
 
-<!-- .container -->
+<!-- container -->
 </div>
 
 <c:import url="/WEB-INF/views/layout/paging.jsp" />

@@ -26,7 +26,6 @@ public class BoardViewController extends HttpServlet {
 		//전달파라미터 얻기 - boardno
 		Board boardno = boardService.getBoardno(req);
 
-		
 		//상세보기 결과 조회
 		Board viewBoard = boardService.view(boardno);
 		
