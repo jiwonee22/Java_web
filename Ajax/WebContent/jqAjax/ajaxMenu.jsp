@@ -35,8 +35,6 @@ $(document).ready(function() {
 		
 		$(".right").load($(this).attr("href"))
 		
-		
-		
 		//<a>태그의 페이지이동(기본동작) 막기
 		return false;
 	})
